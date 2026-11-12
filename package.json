@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "dev:netlify": "netlify dev",
-    "build": "pnpm -r --filter ./packages/contract --filter ./server run build && pnpm --filter web build",
+    "build": "pnpm -r --filter ./packages/contract --filter ./server run build && node scripts/bundle-server.mjs && pnpm --filter web build",
     "test": "vitest run",
     "e2e": "playwright test",
     "verify:seed": "tsx scripts/verify-seed.ts",
@@ -29,6 +29,7 @@
     "@netlify/functions": "^6.1.1",
     "@playwright/test": "1.48",
     "@types/node": "22",
+    "esbuild": "^0.28.2",
     "eslint": "9",
     "eslint-plugin-react-hooks": "5",
     "hono": "^4.13.18",

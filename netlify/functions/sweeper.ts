@@ -1,5 +1,5 @@
 import type { Config } from '@netlify/functions';
-import { runSweep } from '../../server/src/index.js';
+import { runSweep } from '../server-bundle/index.mjs';
 
 /** Closes idle sessions at their last heartbeat and auto-closes sessions left open from an earlier day. */
 export default async (): Promise<Response> => {
