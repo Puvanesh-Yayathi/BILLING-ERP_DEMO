@@ -8,10 +8,11 @@ import type { DataStore, Versioned } from './types.js';
  */
 export class BlobStore implements DataStore {
   readonly kind = 'blobs' as const;
-  private store: Store;
+  constructor(private readonly namespace: string) {}
 
-  constructor(namespace: string) {
-    this.store = getStore({ name: `billing-demo-${namespace}`, consistency: 'strong' });
+  /** Netlify issues a short-lived Blobs token per request, so the store client is created on each use. */
+  private get store(): Store {
+    return getStore({ name: `billing-demo-${this.namespace}`, consistency: 'strong' });
   }
 
   async get<T>(key: string): Promise<Versioned<T>> {
