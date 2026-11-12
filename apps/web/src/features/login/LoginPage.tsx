@@ -7,6 +7,7 @@ import type { MeResponse } from '@app/contract';
 import { api, ApiError } from '../../api/client';
 import { applyBranding, useSession } from '../../lib/session';
 import { Spinner } from '../../ui/Button';
+import { errorText } from '../../ui/feedback';
 import { Contours } from './Contours';
 
 const DEMO_ACCOUNTS: { username: string; name: string; work: string }[] = [
@@ -93,7 +94,7 @@ export function LoginPage() {
         setNow(Date.now());
         setError(null);
       } else if (err instanceof ApiError && err.status === 401) setError('The username or password is not correct.');
-      else setError(err instanceof ApiError ? err.message : 'Cannot sign in right now. Try again.');
+      else setError(err instanceof ApiError ? errorText(err) : 'Cannot sign in right now. Try again.');
       passRef.current?.focus();
     } finally {
       setBusy(false);

@@ -58,7 +58,8 @@ export function errorText(e: unknown): string {
   if (e instanceof ApiError) {
     if (e.status === 429 && e.retryAfter) return `${e.message.replace(/ Try again.*$/, '')} Try again in ${e.retryAfter} seconds.`;
     if (e.status === 409 && e.code === 'STALE') return 'This record was changed by someone else. Reload to see the latest version.';
-    return e.message;
+    const detail = e.code === 'INTERNAL' && e.details && typeof (e.details as Record<string, unknown>).error === 'string' ? ` (${String((e.details as Record<string, unknown>).error)})` : '';
+    return `${e.message}${detail}`;
   }
   return 'Something went wrong. Try again.';
 }
