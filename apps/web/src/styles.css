@@ -1,0 +1,139 @@
+/* IBM Plex Sans, self-hosted, subset to Latin plus the rupee sign (latin-ext covers U+20B9). */
+@import '@fontsource/ibm-plex-sans/latin-400.css';
+@import '@fontsource/ibm-plex-sans/latin-500.css';
+@import '@fontsource/ibm-plex-sans/latin-600.css';
+@import '@fontsource/ibm-plex-sans/latin-700.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-400.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-500.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-600.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-white font-sans text-base text-deep antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  :focus-visible {
+    outline: 2px solid #1f5f99;
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: #f3f5f8;
+    color: #0f2a47;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .num {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .label {
+    @apply text-sm font-medium text-deep;
+  }
+  .helper {
+    @apply text-meta text-slate;
+  }
+  .link {
+    @apply font-medium text-tide underline-offset-2 hover:underline;
+  }
+  .hairline {
+    @apply border-hairline;
+  }
+  .skeleton {
+    background: #f3f5f8;
+    border-radius: 4px;
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  .row-arrive {
+    animation: arrive 1.5s cubic-bezier(0.2, 0, 0, 1);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes arrive {
+  from {
+    background-color: #f3f5f8;
+  }
+  to {
+    background-color: #ffffff;
+  }
+}
+
+@keyframes route-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(0.85);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* A4 portrait printing. The document pages are laid out by the print engine at exact millimetres. */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #ffffff;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-root {
+    padding: 0 !important;
+    gap: 0 !important;
+    background: #ffffff !important;
+  }
+  .a4-page {
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    break-after: page;
+  }
+  .a4-page:last-child {
+    break-after: auto;
+  }
+}

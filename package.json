@@ -1,0 +1,41 @@
+{
+  "name": "billing-demo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:netlify": "netlify dev",
+    "build": "pnpm -r --filter ./packages/contract --filter ./server run build && pnpm --filter web build",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "verify:seed": "tsx scripts/verify-seed.ts",
+    "loadtest": "tsx scripts/loadtest.ts",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc -p packages/contract && tsc -p server && tsc -p apps/web && tsc -p tsconfig.scripts.json",
+    "check:palette": "node scripts/check-palette.mjs",
+    "format": "prettier --write .",
+    "preview": "node scripts/preview.mjs",
+    "lighthouse": "pnpm dlx @lhci/cli@0.14.0 autorun"
+  },
+  "devDependencies": {
+    "@app/contract": "workspace:^",
+    "@app/server": "workspace:^",
+    "@axe-core/playwright": "^4.14.0",
+    "@hono/node-server": "^2.1.7",
+    "@netlify/functions": "^6.1.1",
+    "@playwright/test": "1.48",
+    "@types/node": "22",
+    "eslint": "9",
+    "eslint-plugin-react-hooks": "5",
+    "hono": "^4.13.18",
+    "prettier": "^3.10.0",
+    "tsx": "^4.23.15",
+    "typescript": "5.6",
+    "typescript-eslint": "8",
+    "vitest": "2"
+  }
+}
