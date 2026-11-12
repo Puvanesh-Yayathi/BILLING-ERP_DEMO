@@ -84,7 +84,7 @@ app.onError((err, c) => {
     return c.json(errorBody(ctx, 'VALIDATION', Object.values(details)[0] ?? 'Check the highlighted fields', details), 400);
   }
   console.error(JSON.stringify({ level: 'error', requestId: ctx.get('requestId'), message: err.message, stack: err.stack }));
-  return c.json(errorBody(ctx, 'INTERNAL', 'Something went wrong on the server. Try again.'), 500);
+  return c.json(errorBody(ctx, 'INTERNAL', 'Something went wrong on the server. Try again.', { error: err.message }), 500);
 });
 
 app.notFound((c) => c.json(errorBody(c as unknown as AppContext, 'NOT_FOUND', 'This API route does not exist'), 404));
